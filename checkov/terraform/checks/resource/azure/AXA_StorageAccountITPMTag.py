@@ -14,10 +14,11 @@ class AXA_StorageAccountITPMTag(BaseResourceCheck):
 
     def scan_resource_conf(self, conf):
         if 'tags' in conf.keys():
-            if "local-itpm" in conf["tags"].keys():
-                if len(conf["tags"]["local-itpm"]) > 0:
-                    return CheckResult.PASSED
-
+            for tag_list in conf.values():
+                for tag in tag_list:
+                    if "local-itpm" in tag.keys():
+                        if len(tag["local-itpm"]) > 0:
+                            return CheckResult.PASSED
         return CheckResult.FAILED
 
 
